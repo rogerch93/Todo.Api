@@ -7,15 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Todo.Aplication\Todo.Aplication.csproj" />
     <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Persistence\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +20,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NPOI" Version="2.7.6" />
   </ItemGroup>
 
 </Project>
