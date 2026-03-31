@@ -3,4 +3,5 @@
   <Project Path="Todo.Aplication/Todo.Aplication.csproj" />
   <Project Path="Todo.Domain/Todo.Domain.csproj" />
   <Project Path="Todo.Infrastructure/Todo.Infrastructure.csproj" />
+  <Project Path="Todo.Tests/Todo.Tests.csproj" Id="4b1affb6-a4f7-417b-a643-bf3188cbcdb0" />
 </Solution>
