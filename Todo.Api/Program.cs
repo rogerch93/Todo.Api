@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json;
 using Todo.Aplication.Interfaces;
-using Todo.Aplication.Mappings;
 using Todo.Aplication.Services;
 using Todo.Aplication.Validators;
 using Todo.Domain.Interfaces;
@@ -31,9 +30,6 @@ builder.Services.AddSwaggerGen(c =>
 // EF Core
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// AutoMapper
-builder.Services.AddAutoMapper(typeof(TarefaMappingProfile));
 
 // Dependency Injection - Application
 builder.Services.AddScoped<ITarefaService, TarefaService>();

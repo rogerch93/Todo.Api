@@ -36,7 +36,7 @@ namespace Todo.Api.Controllers
         public async Task<ActionResult<IEnumerable<TarefaDto>>> GetAll()
             => Ok(await _service.GetAllAsync());
 
-        // === ÚNICO ENDPOINT DE FILTRAGEM (Status + Data de Vencimento) ===
+        // Filtro (Status + Data de Vencimento) ===
         [HttpGet("filtrar")]
         public async Task<ActionResult<IEnumerable<TarefaDto>>> GetFiltered(
             [FromQuery] StatusTarefa? status,

@@ -24,7 +24,17 @@ namespace Todo.Domain.Entities
         // Construtor protegido para EF Core
         protected Tarefa() { }
 
-        public Tarefa(string titulo, string? descricao = null, DateTime? dataVencimento = null)
+        public Tarefa(string titulo)
+            : this(titulo, null, null)
+        {
+        }
+
+        public Tarefa(string titulo, string? descricao)
+            : this(titulo, descricao, null)
+        {
+        }
+
+        public Tarefa(string titulo, string? descricao, DateTime? dataVencimento)
         {
             if (string.IsNullOrWhiteSpace(titulo))
                 throw new ArgumentException("Título é obrigatório", nameof(titulo));
@@ -71,7 +81,7 @@ namespace Todo.Domain.Entities
             DataAtualizacao = DateTime.UtcNow;
         }
 
-        public void Atualizar(string titulo, string? descricao, DateTime? dataVencimento = null)
+        public void Atualizar(string titulo, string? descricao, DateTime? dataVencimento)
         {
             if (string.IsNullOrWhiteSpace(titulo))
                 throw new ArgumentException("Título é obrigatório", nameof(titulo));

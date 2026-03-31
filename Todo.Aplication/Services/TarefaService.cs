@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +16,11 @@ namespace Todo.Aplication.Services
     {
         private readonly ITarefaRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public TarefaService(ITarefaRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public TarefaService(ITarefaRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task<TarefaDto> CreateAsync(CreateTarefaDto dto)
@@ -31,21 +28,26 @@ namespace Todo.Aplication.Services
             var tarefa = new Tarefa(dto.Titulo, dto.Descricao, dto.DataVencimento);
             await _repository.AddAsync(tarefa);
             await _unitOfWork.CommitAsync();
-            return _mapper.Map<TarefaDto>(tarefa);
+            return MapTarefaToDto(tarefa);
         }
 
         public async Task<TarefaDto?> GetByIdAsync(Guid id)
         {
             var tarefa = await _repository.GetByIdAsync(id);
-            return _mapper.Map<TarefaDto?>(tarefa);
+            return tarefa == null ? null : MapTarefaToDto(tarefa);
         }
 
         public async Task<IEnumerable<TarefaDto>> GetAllAsync()
-            => _mapper.Map<IEnumerable<TarefaDto>>(await _repository.GetAllAsync());
+        {
+            var tarefas = await _repository.GetAllAsync();
+            return tarefas.Select(MapTarefaToDto);
+        }
 
         public async Task<IEnumerable<TarefaDto>> GetFilteredAsync(StatusTarefa? status, DateTime? dataInicio, DateTime? dataFim)
-            => _mapper.Map<IEnumerable<TarefaDto>>(
-                await _repository.GetFilteredAsync(status, dataInicio, dataFim));
+        {
+            var tarefas = await _repository.GetFilteredAsync(status, dataInicio, dataFim);
+            return tarefas.Select(MapTarefaToDto);
+        }
 
         public async Task UpdateAsync(Guid id, UpdateTarefaDto dto)
         {
@@ -98,5 +100,19 @@ namespace Todo.Aplication.Services
             _repository.Update(tarefa);
             await _unitOfWork.CommitAsync();
         }
+
+        // Métodos privados para mapeamento manual
+        private static TarefaDto MapTarefaToDto(Tarefa tarefa) => new()
+        {
+            Id = tarefa.Id,
+            Titulo = tarefa.Titulo,
+            Descricao = tarefa.Descricao,
+            Status = tarefa.Status,
+            DataCriacao = tarefa.DataCriacao,
+            DataAtualizacao = tarefa.DataAtualizacao,
+            DataConclusao = tarefa.DataConclusao,
+            DataVencimento = tarefa.DataVencimento,
+            IsDeleted = tarefa.IsDeleted
+        };
     }
 }

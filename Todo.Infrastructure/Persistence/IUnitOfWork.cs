@@ -8,7 +8,7 @@ namespace Todo.Infrastructure.Persistence
 {
     public interface IUnitOfWork : IDisposable
     {
-        Task<int> CommitAsync(CancellationToken cancellationToken = default);
+        Task<int> CommitAsync();
         Task BeginTransactionAsync();
         Task CommitTransactionAsync();
         Task RollbackTransactionAsync();

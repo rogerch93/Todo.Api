@@ -18,9 +18,9 @@ namespace Todo.Infrastructure.Persistence
             _context = context;
         }
 
-        public async Task<int> CommitAsync(CancellationToken cancellationToken = default)
+        public async Task<int> CommitAsync()
         {
-            return await _context.SaveChangesAsync(cancellationToken);
+            return await _context.SaveChangesAsync();
         }
 
         public async Task BeginTransactionAsync()
