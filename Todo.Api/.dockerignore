@@ -1,0 +1,28 @@
+﻿# Diretórios gerados pelo build (antes de COPY, serão deletados antes do build)
+# bin/
+# obj/
+
+# Arquivos do Visual Studio
+*.user
+*.suo
+*.usersecrets
+*.sln.docstates
+
+# Debug
+*.pdb
+
+# Versionamento
+.git/
+.gitignore
+.gitattributes
+
+# Documentação
+README.md
+*.md
+
+# Configurações locais de desenvolvimento
+appsettings.Development.json
+secrets.json
+
+# Testes (não necessários no build da imagem de produção)
+Todo.Tests/

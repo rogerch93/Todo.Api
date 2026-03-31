@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json;
+using Todo.Api.Extensions;
 using Todo.Aplication.Interfaces;
 using Todo.Aplication.Services;
 using Todo.Aplication.Validators;
@@ -56,11 +57,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else if (app.Environment.IsProduction())
+{
+    // Habilitar Swagger em produção também (pode ser desabilitado depois)
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Aplicar migrations automaticamente
+await app.ApplyMigrationsAsync();
 
 app.Run();
