@@ -11,7 +11,11 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - sqlserver-data:/var/opt/mssql
+      # Usar caminho relativo do host para melhor compatibilidade
+      - ./sqlserver-data:/var/opt/mssql/data
+      - ./sqlserver-log:/var/opt/mssql/log
+      - ./sqlserver-backup:/var/opt/mssql/backup
+    restart: unless-stopped
 
   todo-api:
     build:
@@ -26,7 +30,7 @@ services:
       - sqlserver
     links:
       - sqlserver
+    restart: unless-stopped
 
-volumes:
-  sqlserver-data:
+
 
